@@ -58,7 +58,7 @@
         <a-layout-content
           :style="{
             background: '#fff',
-            padding: '24px',
+            padding: '10px',
             margin: 0,
             minHeight: '280px',
           }"
@@ -75,7 +75,7 @@
               </a-tabs>
             </template>
             <template #right>
-              <h1>右侧内容</h1>
+              <router-view></router-view>
             </template>
           </zu-split-pane>
         </a-layout-content>
@@ -103,7 +103,7 @@ export default defineComponent({
     ZuMarkdown,
   },
   setup() {
-    let offset = ref(0.4);
+    let offset = ref(0.5);
     let text = ref(`# 成功`);
     function move(val) {
       offset.value = val;
@@ -124,6 +124,9 @@ export default defineComponent({
 .ant-layout {
   width: 100%;
   height: 100%;
+  .ant-layout-content {
+    height: 100%;
+  }
 }
 .ant-layout-header {
   .logo {
@@ -135,5 +138,17 @@ export default defineComponent({
 
 .site-layout-background {
   background: #fff;
+}
+:deep(.ant-tabs) {
+  height: 100%;
+  .ant-tabs-content-holder {
+    height: 100%;
+    .ant-tabs-content {
+      height: 100%;
+      .ant-tabs-tabpane {
+        height: 100%; 
+      }
+    }
+  }
 }
 </style>

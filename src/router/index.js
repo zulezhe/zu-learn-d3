@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-18 14:05:41
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-18 14:19:31
+ * @LastEditTime: 2022-10-18 23:10:14
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
  */
@@ -16,7 +16,17 @@ const routes = [
     meta: {
       title: 'Home'
     },
-  } 
+    children: [
+      {
+        path: '/base',
+        name: "learn-d3",
+        component: () => import("@/views/base.vue"),
+        meta: {
+          title: 'base'
+        },
+      }
+    ]
+  }
 ]
 
 

@@ -2,17 +2,16 @@
  * @Author: zulezhe
  * @Date: 2022-10-18 15:33:46
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-18 22:14:59
+ * @LastEditTime: 2022-10-18 23:37:51
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
 <template>
-  <div class="zu-mardown">
-    <v-md-preview
-      :text="md"
-      @copy-code-success="handleCopyCodeSuccess"
-    ></v-md-preview>
-  </div>
+  <v-md-preview
+    class="zu-mardown"
+    :text="md"
+    @copy-code-success="handleCopyCodeSuccess"
+  ></v-md-preview>
 </template>
 <script setup>
 import { message } from "ant-design-vue";
@@ -62,10 +61,8 @@ VMdPreview.use(createTipPlugin());
 VMdPreview.use(createKatexPlugin());
 let md = ref("");
 axios.get("./doc/test.md").then((res) => {
-  console.log("请求成功===>", res);
-  // md.value = new markdownIt().render(res.data);
+  // console.log("请求成功===>", res);
   md.value = res.data.toString();
-  console.log(md.value);
 });
 defineComponent({ VMdPreview: VMdPreview });
 defineProps({
@@ -80,8 +77,11 @@ function handleCopyCodeSuccess() {
 </script>
 <style lang="scss" scoped>
 .zu-mardown {
-  height: 950px;
+  height: 100%;
   overflow-y: scroll;
+  :deep(.github-markdown-body) {
+    height: 100%;
+  }
 }
 .v-md-pre-wrapper {
   max-height: 200px;
