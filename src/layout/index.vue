@@ -67,6 +67,9 @@
             <template #left>
               <a-tabs v-model:activeKey="activeKey">
                 <a-tab-pane key="1" tab="代码">
+                  <div class="loading-box" v-if="loading">
+                    <zu-loading />
+                  </div>
                   <zu-code />
                 </a-tab-pane>
                 <a-tab-pane key="2" tab="指南" force-render>
@@ -87,12 +90,13 @@
 import ZuSplitPane from "@/components/zu-split-pane/index.vue";
 import ZuCode from "@/components/zu-code/index.vue";
 import ZuMarkdown from "@/components/zu-markdown/index.vue";
+import ZuLoading from "@/components/zu-loading/index.vue";
 import {
   UserOutlined,
   LaptopOutlined,
   NotificationOutlined,
 } from "@ant-design/icons-vue";
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, shallowRef } from "vue";
 export default defineComponent({
   components: {
     UserOutlined,
@@ -101,9 +105,11 @@ export default defineComponent({
     ZuSplitPane,
     ZuCode,
     ZuMarkdown,
+    ZuLoading,
   },
   setup() {
     let offset = ref(0.5);
+    const loading = shallowRef(false);
     let text = ref(`# 成功`);
     function move(val) {
       offset.value = val;
@@ -146,7 +152,7 @@ export default defineComponent({
     .ant-tabs-content {
       height: 100%;
       .ant-tabs-tabpane {
-        height: 100%; 
+        height: 100%;
       }
     }
   }
