@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-18 13:52:59
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-18 14:15:59
+ * @LastEditTime: 2022-10-18 21:40:16
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
  */
@@ -12,7 +12,11 @@ import { resolve } from 'path'
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode, ssrBuild }) => {
   return {
-    plugins: [vue()],
+    plugins: [
+      vue({
+        include: [/\.vue$/, /\.md$/], // <--
+      }),
+    ],
     resolve: {
       alias: {
         '@': resolve(__dirname, 'src')

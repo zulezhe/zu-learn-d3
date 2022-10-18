@@ -1,5 +1,5 @@
 <template>
-  <div class="split-pane-wrapper" ref="outer">
+  <div class="zu-split-pane" ref="outer">
     <div class="pane pane-left" :style="{ width: leftOffsetPercent }">
       <slot name="left"></slot>
     </div>
@@ -52,7 +52,6 @@ export default {
   computed: {
     //计算左边面板的宽度
     leftOffsetPercent() {
-      console.log(this.val);
       return `${this.val * 100}%`;
     }, //右边面板的marginleft
     triggerLeft() {
@@ -88,7 +87,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.split-pane-wrapper {
+.zu-split-pane {
   height: 100%;
   width: 100%;
   position: relative;

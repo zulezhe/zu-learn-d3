@@ -65,7 +65,14 @@
         >
           <zu-split-pane v-model:val="offset" @move="move">
             <template #left>
-              <h1>左侧内容</h1>
+              <a-tabs v-model:activeKey="activeKey">
+                <a-tab-pane key="1" tab="代码">
+                  <zu-code />
+                </a-tab-pane>
+                <a-tab-pane key="2" tab="指南" force-render>
+                  <ZuMarkdown></ZuMarkdown>
+                </a-tab-pane>
+              </a-tabs>
             </template>
             <template #right>
               <h1>右侧内容</h1>
@@ -76,8 +83,10 @@
     </a-layout>
   </a-layout>
 </template>
-<script lang="ts">
+<script>
 import ZuSplitPane from "@/components/zu-split-pane/index.vue";
+import ZuCode from "@/components/zu-code/index.vue";
+import ZuMarkdown from "@/components/zu-markdown/index.vue";
 import {
   UserOutlined,
   LaptopOutlined,
@@ -90,19 +99,23 @@ export default defineComponent({
     LaptopOutlined,
     NotificationOutlined,
     ZuSplitPane,
+    ZuCode,
+    ZuMarkdown,
   },
   setup() {
     let offset = ref(0.4);
+    let text = ref(`# 成功`);
     function move(val) {
       offset.value = val;
     }
     return {
-      selectedKeys1: ref<string[]>(["2"]),
-      selectedKeys2: ref<string[]>(["1"]),
-      collapsed: ref<boolean>(false),
-      openKeys: ref<string[]>(["sub1"]),
+      selectedKeys1: ref(["2"]),
+      selectedKeys2: ref(["1"]),
+      collapsed: ref(false),
+      openKeys: ref(["sub1"]),
       offset,
       move,
+      text,
     };
   },
 });
