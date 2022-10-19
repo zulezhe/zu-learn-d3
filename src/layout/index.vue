@@ -69,12 +69,12 @@
                   <zu-code />
                 </a-tab-pane>
                 <a-tab-pane key="2" tab="指南" force-render>
-                  <ZuMarkdown></ZuMarkdown>
+                  <ZuMarkdown />
                 </a-tab-pane>
               </a-tabs>
             </template>
             <template #right>
-              <router-view></router-view>
+              <router-view />
             </template>
           </zu-split-pane>
         </a-layout-content>
@@ -94,13 +94,10 @@ import {
   LaptopOutlined,
   NotificationOutlined,
 } from "@ant-design/icons-vue";
-import { defineComponent, ref, shallowRef } from "vue";
+import {  ref, shallowRef } from "vue";
 let offset = ref(0.5);
 const loading = shallowRef(false);
-let text = ref(`# 成功`);
-let selectedKeys1 = ref(["2"]);
 let selectedKeys2 = ref(["1"]);
-let collapsed = ref(false);
 let openKeys = ref(["sub1"]);
 function move(val) {
   offset.value = val;

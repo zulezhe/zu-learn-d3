@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-18 15:33:46
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-18 23:37:51
+ * @LastEditTime: 2022-10-20 01:23:04
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -16,7 +16,6 @@
 <script setup>
 import { message } from "ant-design-vue";
 import axios from "axios";
-import markdownIt from "markdown-it";
 import { defineComponent, ref } from "vue";
 import VMdPreview from "@kangc/v-md-editor/lib/preview";
 import "@kangc/v-md-editor/lib/style/preview.css";
@@ -26,6 +25,7 @@ import "@kangc/v-md-editor/lib/theme/style/github.css";
 import createLineNumbertPlugin from "@kangc/v-md-editor/lib/plugins/line-number/index";
 // highlightjs 核心代码
 import hljs from "highlight.js/lib/core";
+import "highlight.js/styles/a11y-dark.css"; // 导入代码高亮样式
 // 复制代码块
 import createCopyCodePlugin from "@kangc/v-md-editor/lib/plugins/copy-code/index";
 import "@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css";
