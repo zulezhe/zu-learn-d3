@@ -35,11 +35,11 @@ export default {
     }, //最大分割值/最小分割值
     min: {
       type: Number,
-      default: 0.1,
+      default: 0.2,
     },
     max: {
       type: Number,
-      default: 0.9,
+      default: 0.8,
     },
   },
   data() {

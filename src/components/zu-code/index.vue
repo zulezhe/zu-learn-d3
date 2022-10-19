@@ -2,32 +2,21 @@
  * @Author: zulezhe
  * @Date: 2022-10-18 15:02:48
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-19 23:53:04
+ * @LastEditTime: 2022-10-19 23:59:36
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
 <template>
-  <!-- <codemirror
+  <codemirror
     class="zu-code"
     v-model="code"
     placeholder="Code gose here..."
-    :style="options.style"
     :mode="options.mode"
     :spellcheck="options.spellcheck"
     :autofocus="options.autofocus"
     :indent-with-tab="options.indentWithTab"
     :tabSize="options.tabSize"
     :extensions="options.extensions"
-    @ready="log('ready', $event)"
-    @change="log('change', $event)"
-    @focus="log('focus', $event)"
-    @blur="useEditedCode"
-  /> -->
-  <codemirror
-    class="zu-code"
-    v-model="code"
-    placeholder="Code gose here..."
-    :options="cmOptions"
     @ready="log('ready', $event)"
     @change="log('change', $event)"
     @focus="log('focus', $event)"

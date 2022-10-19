@@ -50,11 +50,6 @@
         </a-menu>
       </a-layout-sider>
       <a-layout style="padding: 0 24px 24px">
-        <a-breadcrumb style="margin: 16px 0">
-          <a-breadcrumb-item>Home</a-breadcrumb-item>
-          <a-breadcrumb-item>List</a-breadcrumb-item>
-          <a-breadcrumb-item>App</a-breadcrumb-item>
-        </a-breadcrumb>
         <a-layout-content
           :style="{
             background: '#fff',
@@ -70,6 +65,7 @@
                   <div class="loading-box" v-if="loading">
                     <zu-loading />
                   </div>
+                  <ZuToolbar />
                   <zu-code />
                 </a-tab-pane>
                 <a-tab-pane key="2" tab="指南" force-render>
@@ -86,45 +82,30 @@
     </a-layout>
   </a-layout>
 </template>
-<script>
+<script setup>
 import ZuSplitPane from "@/components/zu-split-pane/index.vue";
 import ZuCode from "@/components/zu-code/index.vue";
 import ZuMarkdown from "@/components/zu-markdown/index.vue";
 import ZuLoading from "@/components/zu-loading/index.vue";
+import ZuToolbar from "@/components/zu-toolbar/index.vue";
+import Base from "@/views/base.vue";
 import {
   UserOutlined,
   LaptopOutlined,
   NotificationOutlined,
 } from "@ant-design/icons-vue";
 import { defineComponent, ref, shallowRef } from "vue";
-export default defineComponent({
-  components: {
-    UserOutlined,
-    LaptopOutlined,
-    NotificationOutlined,
-    ZuSplitPane,
-    ZuCode,
-    ZuMarkdown,
-    ZuLoading,
-  },
-  setup() {
-    let offset = ref(0.5);
-    const loading = shallowRef(false);
-    let text = ref(`# 成功`);
-    function move(val) {
-      offset.value = val;
-    }
-    return {
-      selectedKeys1: ref(["2"]),
-      selectedKeys2: ref(["1"]),
-      collapsed: ref(false),
-      openKeys: ref(["sub1"]),
-      offset,
-      move,
-      text,
-    };
-  },
-});
+let offset = ref(0.5);
+const loading = shallowRef(false);
+let text = ref(`# 成功`);
+let selectedKeys1 = ref(["2"]);
+let selectedKeys2 = ref(["1"]);
+let collapsed = ref(false);
+let openKeys = ref(["sub1"]);
+function move(val) {
+  offset.value = val;
+}
+console.log("Base===>", Base);
 </script>
 <style scoped lang="scss">
 .ant-layout {
