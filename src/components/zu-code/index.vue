@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-18 15:02:48
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-19 00:05:02
+ * @LastEditTime: 2022-10-19 23:53:04
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -43,11 +43,6 @@ import { reactive, ref, toRefs } from "vue";
 import axios from "axios";
 // 数据
 const code = ref(null);
-// const options = reactive({
-//   mode: "text/x-c++src",
-//   tabSize: 2,
-//   extensions: [javascript(), oneDark], //传递给CodeMirror EditorState。创建({扩展})
-// });
 const options = reactive({
   tabSize: 4, // 制表符的宽度
   autofocus: true,
