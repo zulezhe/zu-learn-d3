@@ -88,7 +88,6 @@ import ZuCode from "@/components/zu-code/index.vue";
 import ZuMarkdown from "@/components/zu-markdown/index.vue";
 import ZuLoading from "@/components/zu-loading/index.vue";
 import ZuToolbar from "@/components/zu-toolbar/index.vue";
-import Base from "@/views/base.vue";
 import {
   UserOutlined,
   LaptopOutlined,
@@ -102,7 +101,6 @@ let openKeys = ref(["sub1"]);
 function move(val) {
   offset.value = val;
 }
-console.log("Base===>", Base);
 </script>
 <style scoped lang="scss">
 .ant-layout {

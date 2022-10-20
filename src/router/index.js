@@ -2,12 +2,15 @@
  * @Author: zulezhe
  * @Date: 2022-10-18 14:05:41
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-18 23:10:14
+ * @LastEditTime: 2022-10-20 23:26:13
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
  */
 import { createRouter, createWebHashHistory } from "vue-router"
-
+import { routerPackag } from "@/utils/auto-import.js"
+const modules = import.meta.glob("../views/**/**.vue")
+const modules2 = import.meta.glob("../views/*/*")
+console.log(modules,modules2);
 const routes = [
   {
     path: '/',
@@ -15,20 +18,24 @@ const routes = [
     component: () => import("@/layout/index.vue"),
     meta: {
       title: 'Home'
-    },
-    children: [
-      {
-        path: '/base',
-        name: "learn-d3",
-        component: () => import("@/views/base.vue"),
-        meta: {
-          title: 'base'
-        },
-      }
-    ]
+    }
   }
 ]
+// 循环进入路由
+for (let i in modules) {
+  let item = modules[i];
+  const routePath1 = item.name.replace(/(.*\/)*([^.]+).*/ig, "$1");
+  const routePath = item.name.replace(/(.*\/)*([^.]+).*/ig, "$2");
+  console.log(routePath1,routePath);
 
+  routes.push({
+    path: '/' + routePath,
+    name: routePath,
+    title: routePath,
+    component: () => import( /* @vite-ignore */ item.name), //.vue不能省略
+  })
+}
+console.log(routes);
 
 // router实例
 const router = createRouter({
