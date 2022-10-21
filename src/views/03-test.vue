@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-18 23:10:25
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-20 23:20:32
+ * @LastEditTime: 2022-10-21 21:32:41
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -16,9 +16,9 @@
 <script>
 import * as d3 from "d3";
 export default {
-  name: "demo002",
+  name: "demo002", 
   data() {
-    return {
+    return { 
       dataset: [100, 80, 78, 98, 93, 82],
       svgWidth: 500,
       svgHeight: 300,
