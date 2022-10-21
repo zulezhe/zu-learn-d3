@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-21 18:03:57
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-21 18:43:07
+ * @LastEditTime: 2022-10-21 18:50:16
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -23,10 +23,7 @@
             基础
           </span>
         </template>
-        <a-menu-item key="/ring-menu">环形菜单</a-menu-item>
-        <a-menu-item key="2">option2</a-menu-item>
-        <a-menu-item key="3">option3</a-menu-item>
-        <a-menu-item key="4">option4</a-menu-item>
+        <a-menu-item key="/select">选择器</a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub2">
         <template #title>
@@ -35,10 +32,7 @@
             进阶
           </span>
         </template>
-        <a-menu-item key="5">option5</a-menu-item>
-        <a-menu-item key="6">option6</a-menu-item>
-        <a-menu-item key="7">option7</a-menu-item>
-        <a-menu-item key="8">option8</a-menu-item>
+        <a-menu-item key="5">力向图</a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub3">
         <template #title>
@@ -47,10 +41,8 @@
             实战
           </span>
         </template>
-        <a-menu-item key="9">option9</a-menu-item>
-        <a-menu-item key="10">option10</a-menu-item>
-        <a-menu-item key="11">option11</a-menu-item>
-        <a-menu-item key="12">option12</a-menu-item>
+        <a-menu-item key="/ring-menu">环形菜单</a-menu-item>
+        <a-menu-item key="9">3D地球</a-menu-item>
       </a-sub-menu>
     </a-menu>
   </a-layout-sider>
@@ -58,15 +50,15 @@
 
 <script setup>
 import { reactive, ref, toRefs } from "vue";
+import { useRouter } from "vue-router";
 let selectedKeys2 = ref(["1"]);
 let openKeys = ref(["sub1"]);
+const router = useRouter();
 function handelClick(item) {
-  //判断点击路径与点击菜单路径是否不同
-  //有效避免重复替换相同路径
-  if (item.key !== this.$route.path) {
-    this.$router.push(item.key);
-    console.log(this.$route.path);
+  console.log(router.path);
+  if (item.key !== router.path) {
     console.log(item);
+    router.push(item.key);
   }
 }
 </script>
