@@ -1,3 +1,11 @@
+<!--
+ * @Author: zulezhe
+ * @Date: 2022-10-18 14:05:22
+ * @LastEditors: zulezhe
+ * @LastEditTime: 2022-10-21 23:50:10
+ * @Path: https://gitee.com/zulezhe/
+ * @Description: 
+-->
 <template>
   <a-layout>
     <a-layout-header class="header">
@@ -5,7 +13,7 @@
     </a-layout-header>
     <a-layout>
       <Sider></Sider>
-      <a-layout style="padding: 0 24px 24px">
+      <a-layout style="padding: 20px">
         <a-layout-content
           :style="{
             background: '#fff',
@@ -45,11 +53,6 @@ import ZuCode from "@/components/zu-code/index.vue";
 import ZuMarkdown from "@/components/zu-markdown/index.vue";
 import ZuLoading from "@/components/zu-loading/index.vue";
 import ZuToolbar from "@/components/zu-toolbar/index.vue";
-import {
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
-} from "@ant-design/icons-vue";
 import { ref, shallowRef } from "vue";
 let offset = ref(0.5);
 const loading = shallowRef(false);

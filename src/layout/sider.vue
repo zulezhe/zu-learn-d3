@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-21 18:03:57
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-21 18:50:16
+ * @LastEditTime: 2022-10-21 23:37:54
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -23,7 +23,7 @@
             基础
           </span>
         </template>
-        <a-menu-item key="/select">选择器</a-menu-item>
+        <a-menu-item key="/01-base">选择器</a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub2">
         <template #title>
@@ -41,7 +41,7 @@
             实战
           </span>
         </template>
-        <a-menu-item key="/ring-menu">环形菜单</a-menu-item>
+        <a-menu-item key="/03-ring-menu">环形菜单</a-menu-item>
         <a-menu-item key="9">3D地球</a-menu-item>
       </a-sub-menu>
     </a-menu>
