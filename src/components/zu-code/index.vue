@@ -1,7 +1,5 @@
 <template>
-  <div class="in-coder-panel">
-    <textarea ref="codeform" v-model="code" class="codemirror"></textarea>
-  </div>
+  <textarea style="width:100%;height:100%" ref="codeform" v-model="code" class="codemirror"></textarea>
 </template>
 <script setup>
 import { watch, onMounted, onBeforeUnmount, ref } from "vue";
@@ -132,3 +130,9 @@ onBeforeUnmount(() => {
   editor.off(props.eventType);
 });
 </script>
+<style lang="scss">
+  .CodeMirror {
+    width: 100%;
+    height: 100% !important;
+  }
+</style>
