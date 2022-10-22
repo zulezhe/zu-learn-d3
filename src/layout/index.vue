@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-18 14:05:22
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-22 21:29:34
+ * @LastEditTime: 2022-10-23 00:57:07
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -27,19 +27,19 @@
               <a-tabs v-model:activeKey="activeKey">
                 <a-tab-pane key="1" tab="代码">
                   <div class="loading-box" v-if="loading">
-                    <zu-loading /> 
+                    <zu-loading />
                   </div>
-                  <ZuToolbar />
-                  <zu-code :content="html" />
+                  <ZuToolbar @run="run" @reset="reset" />
+                  <zu-code :value="html" ref="zuCodeRef" />
                 </a-tab-pane>
                 <a-tab-pane key="2" tab="指南" force-render>
                   <ZuMarkdown />
                 </a-tab-pane>
-              </a-tabs> 
+              </a-tabs>
             </template>
             <template #right>
               <iframe
-                :srcdoc="html"
+                :srcdoc="previewCode"
                 frameborder="0"
                 style="width: 100%; height: 100%"
               ></iframe>
@@ -48,7 +48,7 @@
         </a-layout-content>
       </a-layout>
     </a-layout>
-  </a-layout> 
+  </a-layout>
 </template>
 <script setup>
 import Sider from "./sider.vue";
@@ -57,18 +57,34 @@ import ZuCode from "@/components/zu-code/index.vue";
 import ZuMarkdown from "@/components/zu-markdown/index.vue";
 import ZuLoading from "@/components/zu-loading/index.vue";
 import ZuToolbar from "@/components/zu-toolbar/index.vue";
-import { ref, shallowRef, computed } from "vue";
+import { ref, shallowRef, onMounted  } from "vue";
 import axios from "axios";
 let offset = ref(0.5);
 let html = ref(null);
+let previewCode = ref(null);
+let zuCodeRef = ref(null);
 const loading = shallowRef(false);
-function move(val) {
-  offset.value = val;
-}
+onMounted(() => {
+  getHtml();
+}),
+  function move(val) {
+    offset.value = val;
+  };
 
-axios.get("./doc/content.html").then((res) => {
-  html.value = res.data;
-});
+function run() {
+  let val = zuCodeRef.value.getValue();
+  console.log("编辑器内容===>", val);
+  previewCode.value = val;
+}
+function reset() {
+  getHtml();
+}
+function getHtml() {
+  axios.get("./doc/content.html").then((res) => {
+    html.value = res.data;
+    previewCode.value = res.data;
+  });
+}
 </script>
 <style scoped lang="scss">
 .ant-layout {

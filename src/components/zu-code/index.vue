@@ -1,5 +1,10 @@
 <template>
-  <textarea style="width:100%;height:100%" ref="codeform" v-model="code" class="codemirror"></textarea>
+  <textarea
+    style="width: 100%; height: 100%"
+    id="codRef"
+    v-model="code"
+    class="codemirror"
+  ></textarea>
 </template>
 <script setup>
 import { watch, onMounted, onBeforeUnmount, ref } from "vue";
@@ -42,79 +47,95 @@ import "codemirror/addon/hint/javascript-hint.js";
 import "codemirror/addon/hint/show-hint.css";
 import "codemirror/addon/hint/show-hint.js";
 const props = defineProps({
-  id: {
-    type: Number,
-    default: 0,
-  },
   // 外部传入的内容，用于实现双向绑定
   value: {
     type: String,
     default: "",
   },
-  readonly: {
-    type: Boolean,
-    default: false,
-  },
-  // 可用事件'change', 'blur'等等；具体参考codemirror文档
-  eventType: {
-    type: String,
-    default: "blur",
-  },
-  // 外部传入的语法类型
-  language: {
-    type: String,
-    default: "text/javascript",
-  },
-  // 编辑器主题色
-  theme: {
-    type: String,
-    default: "monokai",
+  options: {
+    type: Object,
+    default: () => {
+      return {
+        mode: "text/javascript",
+        tabSize: 1, // 缩进格式
+        indentWithTabs: true,
+        smartIndent: true, //智能缩进
+        indentUnit: 4, // 智能缩进单元长度为4个单元格
+        matchBrackets: true, //每当光标位于匹配的方括号旁边时，都会使其高亮显示
+        lineWrapping: true,
+        lineNumbers: true, // 显示行号
+        autoRefresh: true,
+        theme: "monokai", // 主题，对应主题库 JS 需要提前引入
+        lint: false,
+        lineWiseCopyCut: false,
+        styleActiveLine: true, // 显示当前行的样式
+        readOnly: false, // true: 不可编辑  false: 可编辑 'nocursor' 失焦,不可编辑
+        extraKeys: { Ctrl: "autocomplete" }, //自定义快捷键
+        hintOptions: {},
+        eventType: "blur",
+        foldGutter: true, // 代码折叠
+        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+        hintOptions: {
+          // 自定义提示选项
+          completeSingle: false, // 当匹配只有一项的时候是否自动补全
+          tables: {
+            users: ["name", "score", "birthDate"],
+            countries: ["name", "population", "size"],
+            score: ["zooao"],
+          },
+        },
+      };
+    },
   },
 });
 const emit = defineEmits(["onUpdate:value"]);
 // 尝试获取全局实例
 const CodeMirror = window.CodeMirror || _CodeMirror;
-// 引入主题后还需要在 options 中指定主题才会生效
-const codeform = ref(null);
 const code = ref(props.value);
 let editor = null;
-// 默认配置
-let options = {
-  mode: "text/javascript",
-  tabSize: 1, // 缩进格式
-  indentWithTabs: true,
-  smartIndent: true, //智能缩进
-  indentUnit: 4, // 智能缩进单元长度为4个单元格
-  matchBrackets: true, //每当光标位于匹配的方括号旁边时，都会使其高亮显示
-  lineWrapping: true,
-  lineNumbers: true, // 显示行号
-  autoRefresh: true,
-  theme: props.theme, // 主题，对应主题库 JS 需要提前引入
-  lint: false,
-  lineWiseCopyCut: false,
-  styleActiveLine: true, // 显示当前行的样式
-  readOnly: props.readonly === false ? false : "nocursor", // true: 不可编辑  false: 可编辑 'nocursor' 失焦,不可编辑
-  extraKeys: { Ctrl: "autocomplete" }, //自定义快捷键
-  hintOptions: {},
-  foldGutter: true, // 代码折叠
-  gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-};
 // 初始化
 function initialize() {
   if (editor) {
     editor.toTextArea();
   }
-  editor = CodeMirror.fromTextArea(codeform.value, options);
-  /*editor.on("keyup", function () {
-        editor.showHint();
-      });*/
+  editor = CodeMirror.fromTextArea(
+    document.getElementById("codRef"),
+    props.options
+  );
+  // editor.on("keypress", () => {
+  //   editor.showHint();
+  // });
+  // editor.on("keyup", function () {
+  //   editor.showHint();
+  // });
   // 支持双向绑定
-  editor.on(props.eventType, (coder) => {
+  editor.on(props.options.eventType, (coder) => {
     if (emit) {
       emit("onUpdate:value", coder.getValue());
     }
   });
 }
+/**
+ * 对外提供赋值
+ */
+const setValue = (val) => {
+  editor.setValue(val);
+};
+
+/**
+ * 设置模式
+ */
+const setMode = (mode) => {
+  console.info(mode);
+  editor.setOption("mode", mode);
+};
+
+/**
+ * 对外提供取值
+ */
+const getValue = () => {
+  return editor.getValue();
+};
 
 watch(
   () => props.value,
@@ -127,12 +148,19 @@ onMounted(() => {
   initialize();
 });
 onBeforeUnmount(() => {
-  editor.off(props.eventType);
+  //取消触发器
+  editor.off(props.options.eventType);
+});
+defineExpose({
+  setValue,
+  getValue,
+  setMode,
 });
 </script>
 <style lang="scss">
-  .CodeMirror {
-    width: 100%;
-    height: 100% !important;
-  }
+.CodeMirror {
+  width: 100%;
+  max-height: 100% !important;
+  min-height: 100% !important;
+}
 </style>
