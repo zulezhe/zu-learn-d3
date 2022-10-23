@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-21 18:03:57
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-21 23:37:54
+ * @LastEditTime: 2022-10-23 16:42:05
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -49,18 +49,12 @@
 </template>
 
 <script setup>
-import { reactive, ref, toRefs } from "vue";
-import { useRouter } from "vue-router";
+import { ref } from "vue";
 let selectedKeys2 = ref(["1"]);
 let openKeys = ref(["sub1"]);
-const router = useRouter();
 function handelClick(item) {
-  console.log(router.path);
-  if (item.key !== router.path) {
-    console.log(item);
-    router.push(item.key);
-  }
-}
+  console.log(item);
+}  
 </script>
 
 <style lang="less" scoped></style>

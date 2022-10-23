@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-19 00:10:53
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-23 16:28:11
+ * @LastEditTime: 2022-10-23 16:42:22
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -160,10 +160,8 @@ function format() {
     indent_empty_lines: false,
   });
   setValue(formatedHTML);
-  console.log("格式化", formatedHTML);
-
 }
-/**
+/** 
  * 设置模式
  */
 function setMode(mode) {
@@ -171,7 +169,6 @@ function setMode(mode) {
   editor.setOption("mode", mode);
 }
 function setTheme(theme) {
-  console.log("切换主题", theme);
   if (theme == "亮") {
     editor.setOption("theme", "elegant");
   } else if (theme == "暗") {

@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-23 14:00:01
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-23 14:51:15
+ * @LastEditTime: 2022-10-23 16:42:17
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
  */
@@ -57,9 +57,8 @@ import "codemirror/addon/display/fullscreen.js";
 // 自动关闭
 import "codemirror/addon/edit/closebrackets.js"; // 在键入时自动关闭括号和引号
 // 格式化
-import "codemirror-formatting";
 // html中使用emmetio插件
 // import emmet from "@emmetio/codemirror-plugin";
 // emmet(_CodeMirror);
 
-export default _CodeMirror 
+export default _CodeMirror  
