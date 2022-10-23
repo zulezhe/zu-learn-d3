@@ -44,6 +44,11 @@
   resolved "https://registry.npmmirror.com/@ctrl/tinycolor/-/tinycolor-3.4.1.tgz#75b4c27948c81e88ccd3a8902047bcd797f38d32"
   integrity sha512-ej5oVy6lykXsvieQtqZxCOaLT+xD4+QNarq78cIYISHmZXshCvROLudpQN3lfL8G0NL7plMSSK+zlyvCaIJ4Iw==
 
+"@emmetio/codemirror-plugin@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.npmmirror.com/@emmetio/codemirror-plugin/-/codemirror-plugin-1.2.4.tgz#f880a36098536f6555747eadece9b7cc2df597e3"
+  integrity sha512-wVw2gqI6X+uVWYVRtTVymzTgbo4hEZIcPCNj4xrXw4l/+L3Qa+tAC/yf+Xy9nenRPCqRq0RLqGiQL+Qf/wYE9Q==
+
 "@esbuild/android-arm@0.15.12":
   version "0.15.12"
   resolved "https://registry.npmmirror.com/@esbuild/android-arm/-/android-arm-0.15.12.tgz#e548b10a5e55b9e10537a049ebf0bc72c453b769"

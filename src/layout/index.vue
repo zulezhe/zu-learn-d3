@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-18 14:05:22
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-23 00:57:07
+ * @LastEditTime: 2022-10-23 14:26:11
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -29,7 +29,12 @@
                   <div class="loading-box" v-if="loading">
                     <zu-loading />
                   </div>
-                  <ZuToolbar @run="run" @reset="reset" />
+                  <ZuToolbar
+                    @run="run"
+                    @reset="reset"
+                    @format="format"
+                    @changeTheme="changeTheme"
+                  />
                   <zu-code :value="html" ref="zuCodeRef" />
                 </a-tab-pane>
                 <a-tab-pane key="2" tab="指南" force-render>
@@ -57,7 +62,7 @@ import ZuCode from "@/components/zu-code/index.vue";
 import ZuMarkdown from "@/components/zu-markdown/index.vue";
 import ZuLoading from "@/components/zu-loading/index.vue";
 import ZuToolbar from "@/components/zu-toolbar/index.vue";
-import { ref, shallowRef, onMounted  } from "vue";
+import { ref, shallowRef, onMounted } from "vue";
 import axios from "axios";
 let offset = ref(0.5);
 let html = ref(null);
@@ -77,7 +82,15 @@ function run() {
   previewCode.value = val;
 }
 function reset() {
+  html.value = "";
+  previewCode.value = "";
   getHtml();
+}
+function format() {
+  zuCodeRef.value.format();
+}
+function changeTheme(type) {
+  zuCodeRef.value.setTheme(type);
 }
 function getHtml() {
   axios.get("./doc/content.html").then((res) => {

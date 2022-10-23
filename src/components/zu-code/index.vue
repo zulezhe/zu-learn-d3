@@ -7,45 +7,9 @@
   ></textarea>
 </template>
 <script setup>
+import _CodeMirror from "./import-codemirror.js";
+import { handleShowHint } from "./show-hunt.js";
 import { watch, onMounted, onBeforeUnmount, ref } from "vue";
-// 引入全局实例
-import _CodeMirror from "codemirror";
-
-// 核心样式
-import "codemirror/lib/codemirror.css";
-// 但 vue 貌似没有无法在实例初始化后再动态加载对应 JS ，所以此处才把对应的 JS 提前引入
-import "codemirror/mode/javascript/javascript.js";
-import "codemirror/addon/edit/matchbrackets";
-import "codemirror/addon/selection/active-line";
-// 主题
-import "codemirror/theme/monokai.css";
-// 快捷键
-import "codemirror/mode/clike/clike.js";
-import "codemirror/addon/edit/matchbrackets.js";
-import "codemirror/addon/comment/comment.js";
-import "codemirror/addon/dialog/dialog.js";
-import "codemirror/addon/dialog/dialog.css";
-import "codemirror/addon/search/searchcursor.js";
-import "codemirror/addon/search/search.js";
-import "codemirror/keymap/sublime.js";
-// 高亮
-import "codemirror/addon/scroll/annotatescrollbar.js";
-import "codemirror/addon/search/matchesonscrollbar.js";
-import "codemirror/addon/search/searchcursor.js";
-import "codemirror/addon/search/match-highlighter.js";
-// 折叠
-import "codemirror/addon/fold/foldgutter.css";
-import "codemirror/addon/fold/foldcode";
-import "codemirror/addon/fold/foldgutter";
-import "codemirror/addon/fold/brace-fold";
-import "codemirror/addon/fold/comment-fold";
-//代码补全提示
-import "codemirror/addon/hint/anyword-hint.js";
-import "codemirror/addon/hint/css-hint.js";
-import "codemirror/addon/hint/html-hint.js";
-import "codemirror/addon/hint/javascript-hint.js";
-import "codemirror/addon/hint/show-hint.css";
-import "codemirror/addon/hint/show-hint.js";
 const props = defineProps({
   // 外部传入的内容，用于实现双向绑定
   value: {
@@ -56,33 +20,46 @@ const props = defineProps({
     type: Object,
     default: () => {
       return {
-        mode: "text/javascript",
+        mode: "text/html", // 模式
         tabSize: 1, // 缩进格式
         indentWithTabs: true,
         smartIndent: true, //智能缩进
         indentUnit: 4, // 智能缩进单元长度为4个单元格
         matchBrackets: true, //每当光标位于匹配的方括号旁边时，都会使其高亮显示
+        autoCloseTags: true, //自动关闭标签
+        autoCloseBrackets: true, //自动补全括号和引号
         lineWrapping: true,
         lineNumbers: true, // 显示行号
-        autoRefresh: true,
-        theme: "monokai", // 主题，对应主题库 JS 需要提前引入
-        lint: false,
+        theme: "erlang-dark", // 主题，对应主题库 JS 需要提前引入
+        lint: true, //检查格式
         lineWiseCopyCut: false,
         styleActiveLine: true, // 显示当前行的样式
         readOnly: false, // true: 不可编辑  false: 可编辑 'nocursor' 失焦,不可编辑
-        extraKeys: { Ctrl: "autocomplete" }, //自定义快捷键
-        hintOptions: {},
+        continueComments: "Enter", // 注释代码 快捷键 Ctrl-Q
+        extraKeys: {
+          //自定义快捷键
+          // Tab: "emmetExpandAbbreviation",
+          // Esc: "emmetResetAbbreviation",
+          // Enter: "emmetInsertLineBreak",
+          "Ctrl-/": "toggleComment",
+          "Ctrl-Enter": "autocomplete",
+        },
         eventType: "blur",
-        foldGutter: true, // 代码折叠
-        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+        foldGutter: true, // 可将对象折叠，与下面的gutters一起使用
+        gutters: [
+          "CodeMirror-lint-markers",
+          "CodeMirror-linenumbers",
+          "CodeMirror-foldgutter",
+        ],
+        highlightSelectionMatches: {
+          minChars: 2,
+          style: "matchhighlight",
+          showToken: true,
+        },
         hintOptions: {
-          // 自定义提示选项
-          completeSingle: false, // 当匹配只有一项的时候是否自动补全
-          tables: {
-            users: ["name", "score", "birthDate"],
-            countries: ["name", "population", "size"],
-            score: ["zooao"],
-          },
+          //提示配置项
+          completeSingle: false,
+          hint: handleShowHint, //自定义提示
         },
       };
     },
@@ -93,7 +70,9 @@ const emit = defineEmits(["onUpdate:value"]);
 const CodeMirror = window.CodeMirror || _CodeMirror;
 const code = ref(props.value);
 let editor = null;
-// 初始化
+/**
+ * 初始化
+ */
 function initialize() {
   if (editor) {
     editor.toTextArea();
@@ -102,12 +81,49 @@ function initialize() {
     document.getElementById("codRef"),
     props.options
   );
-  // editor.on("keypress", () => {
-  //   editor.showHint();
-  // });
-  // editor.on("keyup", function () {
-  //   editor.showHint();
-  // });
+  /**
+   * 忽略自动提示的token
+   */
+  const ignore = [
+    "",
+    "#",
+    "!",
+    "-",
+    "=",
+    "@",
+    "$",
+    "%",
+    "&",
+    "+",
+    ";",
+    "(",
+    ")",
+    "*",
+  ];
+  const ignoreToken = (text) => {
+    if (text && text[0]) {
+      for (const pre in ignore) {
+        if (ignore[pre] === text[0]) {
+          return true;
+        }
+      }
+    } else {
+      return true;
+    }
+    return false;
+  };
+
+  editor.on("change", function (editor, change) {
+    //任意键触发autocomplete
+    if (change.origin == "+input") {
+      var text = change.text;
+      if (!ignoreToken(text))
+        //不提示
+        setTimeout(function () {
+          editor.execCommand("autocomplete");
+        }, 20);
+    }
+  });
   // 支持双向绑定
   editor.on(props.options.eventType, (coder) => {
     if (emit) {
@@ -115,11 +131,17 @@ function initialize() {
     }
   });
 }
+
 /**
  * 对外提供赋值
  */
 const setValue = (val) => {
   editor.setValue(val);
+};
+const format = () => {
+  let tem=getValue()
+  console.log("代码格式化",tem);
+  setValue(tem);
 };
 
 /**
@@ -128,6 +150,14 @@ const setValue = (val) => {
 const setMode = (mode) => {
   console.info(mode);
   editor.setOption("mode", mode);
+};
+const setTheme = (theme) => {
+  console.log("切换主题", theme);
+  if (theme == "亮") {
+    editor.setOption("theme", "elegant");
+  } else if (theme == "暗") {
+    editor.setOption("theme", "erlang-dark");
+  }
 };
 
 /**
@@ -155,6 +185,8 @@ defineExpose({
   setValue,
   getValue,
   setMode,
+  setTheme,
+  format
 });
 </script>
 <style lang="scss">
@@ -162,5 +194,19 @@ defineExpose({
   width: 100%;
   max-height: 100% !important;
   min-height: 100% !important;
+}
+// 设置智能提示弹窗的样式
+.CodeMirror-hints {
+  color: rgb(98 189 255);
+  background-color: red;
+}
+.CodeMirror-hint {
+  color: rgb(98 189 255);
+  background-color: green;
+}
+.CodeMirror-hint-active {
+  color: rgb(98 189 255);
+  background-color: blue;
+  color: yellow;
 }
 </style>

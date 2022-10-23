@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-19 00:34:03
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-20 01:38:17
+ * @LastEditTime: 2022-10-23 12:10:31
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -61,7 +61,7 @@ defineProps({
 const emit = defineEmits(["formatCode", "reset", "run"]);
 const checked1 = ref(null);
 function formatCode() {
-  emit("formatCode");
+  emit("format");
 }
 function reset() {
   emit("reset");
