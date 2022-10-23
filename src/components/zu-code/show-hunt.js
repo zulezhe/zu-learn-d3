@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-23 13:58:30
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-23 14:05:25
+ * @LastEditTime: 2022-10-23 15:03:17
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
  */
@@ -30,4 +30,50 @@ export function handleShowHint(cmInstance, hintOptions) {
     from: { ch: token.start, line: cursor.line },
     to: { ch: token.end, line: cursor.line },
   };
+}
+
+
+export function handleShowHint2(cmInstance, hintOptions) {
+  let cursor = cmInstance.getCursor();
+  let cursorLine = cmInstance.getLine(cursor.line);
+  let end = cursor.ch;
+  let start = end;
+
+  let token = cmInstance.getTokenAt(cursor)
+  console.log(cmInstance, cursor, cursorLine, end, token)
+  return {
+    list: [{
+      text: "hello",
+      displayText: "你好呀",
+      displayInfo: "提示信息1",
+      render: hintRender
+    }, {
+      text: "world",
+      displayText: "世界",
+      displayInfo: "提示信息2",
+      render: hintRender
+    }],
+    from: {
+      ch: token.start, line: cursor.line
+    },
+    to: {
+      ch: token.end, line: cursor.line
+    }
+  }
+}
+function hintRender(element, self, data) {
+  let div = document.createElement("div");
+  div.setAttribute("class", "autocomplete-div");
+
+  let divText = document.createElement("div");
+  divText.setAttribute("class", "autocomplete-name");
+  divText.innerText = data.displayText;
+
+  let divInfo = document.createElement("div");
+  divInfo.setAttribute("class", "autocomplete-hint");
+  divInfo.innerText = data.displayInfo;
+
+  div.appendChild(divText);
+  div.appendChild(divInfo);
+  element.appendChild(div);
 }

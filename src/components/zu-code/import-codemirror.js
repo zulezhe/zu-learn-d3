@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-23 14:00:01
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-23 14:01:11
+ * @LastEditTime: 2022-10-23 14:51:15
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
  */
@@ -23,6 +23,8 @@ import "codemirror/mode/clike/clike.js";
 import "codemirror/addon/comment/comment.js";
 // 自动括号匹配
 import "codemirror/addon/edit/matchbrackets.js";
+// 自动闭合标签
+import "codemirror/addon/edit/closetag.js";
 // 搜索
 import "codemirror/addon/dialog/dialog.js";
 import "codemirror/addon/dialog/dialog.css";
@@ -49,10 +51,15 @@ import "codemirror/addon/hint/html-hint.js";
 import "codemirror/addon/hint/javascript-hint.js";
 import "codemirror/addon/hint/show-hint.css";
 import "codemirror/addon/hint/show-hint.js";
+// 全屏
+import "codemirror/addon/display/fullscreen.css";
+import "codemirror/addon/display/fullscreen.js";
 // 自动关闭
 import "codemirror/addon/edit/closebrackets.js"; // 在键入时自动关闭括号和引号
+// 格式化
+import "codemirror-formatting";
 // html中使用emmetio插件
 // import emmet from "@emmetio/codemirror-plugin";
 // emmet(_CodeMirror);
 
-export default _CodeMirror
+export default _CodeMirror 

@@ -7,9 +7,12 @@ https://www.npmjs.com/package/codemirror
 + html代码高亮
 + 切换主题
 + emmet html自动补全功能
++ 自动闭合标签
 + 自动关闭括号
 + 自动补全引号
 + 注释
 + 搜索
 + 显示行号
 + 代码折叠
++ 全屏
++ 代码格式化

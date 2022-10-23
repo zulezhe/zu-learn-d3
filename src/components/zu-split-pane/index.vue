@@ -112,7 +112,7 @@ export default {
       background: rgb(240, 240, 240);
       position: absolute;
       top: 0;
-      z-index: 10;
+      // z-index: 10;
       user-select: none;
       cursor: col-resize;
       .pane-trigger-con__button {
