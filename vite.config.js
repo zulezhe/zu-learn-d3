@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-18 13:52:59
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-18 22:33:21
+ * @LastEditTime: 2022-10-23 17:57:44
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
  */
@@ -12,6 +12,7 @@ import { resolve } from 'path'
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode, ssrBuild }) => {
   return {
+    base:"./",
     server: {
       host: '0.0.0.0',
       port:"3003",
