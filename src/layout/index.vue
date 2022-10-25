@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-18 14:05:22
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-23 14:26:11
+ * @LastEditTime: 2022-10-25 13:01:41
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -12,7 +12,7 @@
       <div class="logo">ZUD3</div>
     </a-layout-header>
     <a-layout>
-      <Sider></Sider>
+      <Sider @active="active"></Sider>
       <a-layout style="padding: 20px">
         <a-layout-content
           :style="{
@@ -38,7 +38,7 @@
                   <zu-code :value="html" ref="zuCodeRef" />
                 </a-tab-pane>
                 <a-tab-pane key="2" tab="指南" force-render>
-                  <ZuMarkdown />
+                  <ZuMarkdown :md="md" />
                 </a-tab-pane>
               </a-tabs>
             </template>
@@ -66,16 +66,27 @@ import { ref, shallowRef, onMounted } from "vue";
 import axios from "axios";
 let offset = ref(0.5);
 let html = ref(null);
+let md = ref('');
 let previewCode = ref(null);
 let zuCodeRef = ref(null);
+let activePath = ref("./doc/基础/选择器");
 const loading = shallowRef(false);
 onMounted(() => {
   getHtml();
-}),
-  function move(val) {
-    offset.value = val;
-  };
-
+});
+function move(val) {
+  offset.value = val;
+}
+/**
+ * 菜单激活
+ * @param {*} item
+ */
+function active(item) {
+  activePath.value = item.key;
+  console.log("获取的内容", activePath.value);
+  getHtml();
+  getMd()
+}
 function run() {
   let val = zuCodeRef.value.getValue();
   console.log("编辑器内容===>", val);
@@ -93,9 +104,14 @@ function changeTheme(type) {
   zuCodeRef.value.setTheme(type);
 }
 function getHtml() {
-  axios.get("./doc/content.html").then((res) => {
+  axios.get(activePath.value + "/index.html").then((res) => {
     html.value = res.data;
     previewCode.value = res.data;
+  });
+}
+function getMd() {
+  axios.get(activePath.value + "/index.md").then((res) => {
+    md.value = res.data.toString();
   });
 }
 </script>

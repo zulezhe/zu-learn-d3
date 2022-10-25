@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-18 15:33:46
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-20 01:23:04
+ * @LastEditTime: 2022-10-25 12:58:51
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -59,14 +59,9 @@ VMdPreview.use(createLineNumbertPlugin());
 VMdPreview.use(createCopyCodePlugin());
 VMdPreview.use(createTipPlugin());
 VMdPreview.use(createKatexPlugin());
-let md = ref("");
-axios.get("./doc/test.md").then((res) => {
-  // console.log("请求成功===>", res);
-  md.value = res.data.toString();
-});
 defineComponent({ VMdPreview: VMdPreview });
 defineProps({
-  text: {
+  md: {
     type: String,
     default: " #  测试 markdown ```js function sum(a, b) {return a + b;}```",
   },

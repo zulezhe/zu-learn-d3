@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-21 18:03:57
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-25 12:40:33
+ * @LastEditTime: 2022-10-25 12:52:03
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -23,8 +23,8 @@
             基础
           </span>
         </template>
-        <a-menu-item key="/基础/选择器">选择器</a-menu-item>
-        <a-menu-item key="/基础/扇形图表">扇形图表</a-menu-item>
+        <a-menu-item key="./doc/基础/选择器">选择器</a-menu-item>
+        <a-menu-item key="./doc/基础/扇形图表">扇形图表</a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub2">
         <template #title>
@@ -33,7 +33,8 @@
             进阶
           </span>
         </template>
-        <a-menu-item key="5">力向图</a-menu-item>
+        <a-menu-item key="./doc/进阶/力向图">力向图</a-menu-item>
+        <a-menu-item key="./doc/进阶/垂直直方图">垂直直方图</a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub3">
         <template #title>
@@ -42,21 +43,24 @@
             实战
           </span>
         </template>
-        <a-menu-item key="/03-ring-menu">环形菜单</a-menu-item>
-        <a-menu-item key="9">3D地球</a-menu-item>
+        <a-menu-item key="./doc/实战/环形菜单">环形菜单</a-menu-item>
+        <a-menu-item key="./doc/实战/地图">地图</a-menu-item>
+        <a-menu-item key="./doc/实战/投影">投影</a-menu-item>
+        <a-menu-item key="./doc/实战/3D地球">3D地球</a-menu-item>
       </a-sub-menu>
     </a-menu>
   </a-layout-sider>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, defineEmits } from "vue";
 let selectedKeys2 = ref(["1"]);
 let openKeys = ref(["sub1"]);
-let menuList = ref([]);
+const emit = defineEmits(["active"]);
 onMounted(() => {});
 function handelClick(item) {
   console.log(item);
+  emit("active", item);
 }
 </script>
 

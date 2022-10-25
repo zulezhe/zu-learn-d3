@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-19 00:10:53
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-23 16:42:22
+ * @LastEditTime: 2022-10-25 13:01:01
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -20,7 +20,6 @@ import { handleShowHint, handleShowHint2 } from "./show-hunt.js";
 import { watch, onMounted, onBeforeUnmount, ref } from "vue";
 import { setExtraKeys } from "./extraKeys.js";
 import hBeautify from "js-beautify";
-console.log("hBeautify===>", hBeautify.html);
 const props = defineProps({
   // 外部传入的内容，用于实现双向绑定
   value: {
@@ -161,7 +160,7 @@ function format() {
   });
   setValue(formatedHTML);
 }
-/** 
+/**
  * 设置模式
  */
 function setMode(mode) {
