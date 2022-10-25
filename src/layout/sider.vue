@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-21 18:03:57
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-23 16:42:05
+ * @LastEditTime: 2022-10-25 12:40:33
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -23,7 +23,8 @@
             基础
           </span>
         </template>
-        <a-menu-item key="/01-base">选择器</a-menu-item>
+        <a-menu-item key="/基础/选择器">选择器</a-menu-item>
+        <a-menu-item key="/基础/扇形图表">扇形图表</a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub2">
         <template #title>
@@ -49,12 +50,14 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 let selectedKeys2 = ref(["1"]);
 let openKeys = ref(["sub1"]);
+let menuList = ref([]);
+onMounted(() => {});
 function handelClick(item) {
   console.log(item);
-}  
+}
 </script>
 
 <style lang="less" scoped></style>
