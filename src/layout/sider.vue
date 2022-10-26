@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-21 18:03:57
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-25 12:52:03
+ * @LastEditTime: 2022-10-26 16:25:57
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -33,8 +33,9 @@
             进阶
           </span>
         </template>
-        <a-menu-item key="./doc/进阶/力向图">力向图</a-menu-item>
         <a-menu-item key="./doc/进阶/垂直直方图">垂直直方图</a-menu-item>
+        <a-menu-item key="./doc/进阶/力向图">力向图</a-menu-item>
+        <a-menu-item key="./doc/进阶/知识图谱">知识图谱</a-menu-item>
       </a-sub-menu>
       <a-sub-menu key="sub3">
         <template #title>
