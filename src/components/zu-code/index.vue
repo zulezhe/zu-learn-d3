@@ -2,7 +2,7 @@
  * @Author: zulezhe
  * @Date: 2022-10-19 00:10:53
  * @LastEditors: zulezhe
- * @LastEditTime: 2022-10-25 13:01:01
+ * @LastEditTime: 2022-10-27 15:24:55
  * @Path: https://gitee.com/zulezhe/
  * @Description: 
 -->
@@ -210,6 +210,7 @@ defineExpose({
   width: 100%;
   max-height: 100% !important;
   min-height: 100% !important;
+  font-family: Consolas, "Courier New", monospace;
 }
 // 设置智能提示弹窗的样式
 .CodeMirror-hints {
@@ -225,5 +226,8 @@ defineExpose({
   background-color: blue;
   color: yellow;
 }
-// 自定义提示面板
+.CodeMirror-wrap pre.CodeMirror-line,
+.CodeMirror-wrap pre.CodeMirror-line-like {
+  font-family: Consolas, "Courier New", monospace;
+}
 </style>
